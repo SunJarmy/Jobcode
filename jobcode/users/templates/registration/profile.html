@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Detail</title>
+</head>
+<body>
+    <h2>User Detail</h2>
+    <ul>
+        <li><strong>Username:</strong> {{ user.username }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Gender:</strong> {{ user.profile.get_gender_display }}</li>
+        <li><strong>Age:</strong> {{ user.profile.age }}</li>
+    </ul>
+
+    {% if user.profile.avatar %}
+    <img src="{{ user.profile.avatar.url }}" alt="User Avatar" width="200">
+    {% else %}
+    <p>No avatar available</p>
+    {% endif %}
+
+    <a href="{% url 'base' %}">Back to Site</a>
+
+    {% if user.is_authenticated %}
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+    {% endif %}
+</body>
+</html>
